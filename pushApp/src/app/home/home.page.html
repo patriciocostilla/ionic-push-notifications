@@ -11,9 +11,20 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
-    <ion-item *ngFor="let message of messages; let i = index">
-      <ion-label>{{ i + 1 }}. {{ message }}</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="token">
+          <pre>{{ token }}</pre>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row
+      ><ion-col>
+        <div *ngIf="token !== fcm.DEFAULT_TOKEN">
+          <ion-button (click)="copy()" expand="block">COPY</ion-button>
+        </div>
+      </ion-col></ion-row
+    >
+  </ion-grid>
 </ion-content>

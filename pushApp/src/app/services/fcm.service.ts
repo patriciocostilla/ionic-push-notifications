@@ -6,11 +6,15 @@ import {
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
+import { BehaviorSubject, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FcmService {
+  public DEFAULT_TOKEN = 'No token';
+  public token = new BehaviorSubject(this.DEFAULT_TOKEN);
+
   constructor(private platform: Platform) {}
 
   init() {
@@ -30,6 +34,7 @@ export class FcmService {
     // Triggered by PushNotifications.register()
     PushNotifications.addListener('registration', (token: Token) => {
       console.log('Push registration success, token: ' + token.value);
+      this.token.next(token.value);
     });
 
     // Triggered when 'registration' listener fails
